@@ -9,6 +9,7 @@ defmodule AdventOfCode2021.Day2.Exercise1 do
     |> String.split("\n")
     |> Enum.map(fn move ->
       [item, val] = String.split(move, " ")
+
       if item in @allow_movements do
         {String.to_atom(item), String.to_integer(val)}
       end
@@ -36,3 +37,6 @@ defmodule AdventOfCode2021.Day2.Exercise1 do
     end
   end
 end
+
+AdventOfCode2021.Day2.Exercise1.read_from_disk!()
+|> AdventOfCode2021.Day2.Exercise1.calc_position()

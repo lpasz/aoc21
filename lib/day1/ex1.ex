@@ -1,5 +1,5 @@
 defmodule AdventOfCode2021.Day1.Exercise1 do
-  @spec read_input_from_disk!(String.t()) :: String.t()
+  @spec read_input_from_disk!(String.t()) :: [integer()]
   def read_input_from_disk!(path \\ "./lib/day1/input.txt") do
     path
     |> File.read!()
@@ -18,3 +18,6 @@ defmodule AdventOfCode2021.Day1.Exercise1 do
     result
   end
 end
+
+AdventOfCode2021.Day1.Exercise1.read_input_from_disk!()
+|> AdventOfCode2021.Day1.Exercise1.number_of_depth_increases()

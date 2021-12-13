@@ -38,5 +38,8 @@ defmodule AdventOfCode2021.Day1.Exercise2 do
   defp sliding_window_depth_inc(_, _, result), do: result
 end
 
-AdventOfCode2021.Day1.Exercise1.read_input_from_disk!()
-|> AdventOfCode2021.Day1.Exercise2.number_of_depth_increases()
+result =
+  AdventOfCode2021.Day1.Exercise1.read_input_from_disk!()
+  |> AdventOfCode2021.Day1.Exercise2.number_of_depth_increases()
+
+IO.puts("Day 1 - Exercise 2 - Result #{result}")

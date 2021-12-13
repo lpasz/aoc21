@@ -38,5 +38,8 @@ defmodule AdventOfCode2021.Day2.Exercise1 do
   end
 end
 
-AdventOfCode2021.Day2.Exercise1.read_from_disk!()
-|> AdventOfCode2021.Day2.Exercise1.calc_position()
+result =
+  AdventOfCode2021.Day2.Exercise1.read_from_disk!()
+  |> AdventOfCode2021.Day2.Exercise1.calc_position()
+
+IO.puts("Day 2 - Exercise 1 - Result #{result}")

@@ -19,5 +19,8 @@ defmodule AdventOfCode2021.Day1.Exercise1 do
   end
 end
 
-AdventOfCode2021.Day1.Exercise1.read_input_from_disk!()
-|> AdventOfCode2021.Day1.Exercise1.number_of_depth_increases()
+result =
+  AdventOfCode2021.Day1.Exercise1.read_input_from_disk!()
+  |> AdventOfCode2021.Day1.Exercise1.number_of_depth_increases()
+
+IO.puts("Day 1 - Exercise 1 - Result #{result}")

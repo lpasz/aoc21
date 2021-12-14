@@ -1,6 +1,5 @@
 defmodule AdventOfCode2021.Day3.Exercise1 do
-
-  @type input() :: [1|0]
+  @type input() :: [1 | 0]
   @type inputs() :: [input()]
 
   @spec read_from_disk!(String.t()) :: inputs()
@@ -10,6 +9,11 @@ defmodule AdventOfCode2021.Day3.Exercise1 do
     |> String.split("\n")
     |> Enum.map(&String.codepoints/1)
     |> Enum.map(fn codepoints -> Enum.map(codepoints, &String.to_integer/1) end)
+  end
+
+  @spec power_consumption(inputs()) :: integer()
+  def power_consumption(inputs) do
+    gamma_rate(inputs) * episilon_rate(inputs)
   end
 
   @spec gamma_rate(inputs()) :: integer()
@@ -48,9 +52,8 @@ defmodule AdventOfCode2021.Day3.Exercise1 do
   end
 end
 
-inputs = AdventOfCode2021.Day3.Exercise1.read_from_disk!()
+results =
+  AdventOfCode2021.Day3.Exercise1.read_from_disk!()
+  |> AdventOfCode2021.Day3.Exercise1.power_consumption()
 
-gamma = AdventOfCode2021.Day3.Exercise1.gamma_rate(inputs)
-episilon = AdventOfCode2021.Day3.Exercise1.episilon_rate(inputs)
-
-IO.puts("Day 3 - Exercise 1 - Result #{gamma * episilon}")
+IO.puts("Day 3 - Exercise 1 - Result #{results}")

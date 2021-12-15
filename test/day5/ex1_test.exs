@@ -48,7 +48,7 @@ defmodule AdventOfCode2021.Day5.Exercise1Test do
   end
 
   test "get overlaped grid points with diagonals", %{inputs: inputs} do
-    assert 5 ==
+    assert 12 ==
              inputs
              |> overlap_diagram()
              |> IO.inspect()

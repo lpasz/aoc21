@@ -71,8 +71,14 @@ defmodule AdventOfCode2021.Day5.Exercise1 do
   end
 
   def create_points(input, x_offset, y_offset) do
-    for x <- input.x1..input.x2, y <- input.y1..input.y2do
-      %{x: x - x_offset, y: y - y_offset}
+    if horizontal_and_vertical_line?(input) do
+      for x <- input.x1..input.x2, y <- input.y1..input.y2 do
+        %{x: x - x_offset, y: y - y_offset}
+      end
+    else
+      for {x, y} <- Enum.zip(input.x1..input.x2, input.y1..input.y2) do
+        %{x: x - x_offset, y: y - y_offset}
+      end
     end
   end
 
@@ -91,9 +97,8 @@ AdventOfCode2021.Day5.Exercise1.read_from_disk()
 |> Enum.count(&(&1 >= 2))
 |> IO.inspect()
 
-# AdventOfCode2021.Day5.Exercise1.read_from_disk()
-# # |> AdventOfCode2021.Day5.Exercise1.only_horizontal_and_vertical_lines()
-# |> AdventOfCode2021.Day5.Exercise1.overlap_diagram()
-# |> List.flatten()
-# |> Enum.count(&(&1 >= 2))
-# |> IO.inspect()
+AdventOfCode2021.Day5.Exercise1.read_from_disk()
+|> AdventOfCode2021.Day5.Exercise1.overlap_diagram()
+|> List.flatten()
+|> Enum.count(&(&1 >= 2))
+|> IO.inspect()

@@ -47,20 +47,16 @@ defmodule AdventOfCode2021.Day4.Exercise1 do
 
   def get_winning_board(boards, caller) do
     boards
-    |> Enum.map(&{&1, board_win_at(&1, caller)})
+    |> Enum.map(&{&1, do_board_win_at(&1, [], caller)})
     |> Enum.sort_by(&elem(&1, 1).round)
     |> List.first()
   end
 
   def get_losing_board(boards, caller) do
     boards
-    |> Enum.map(&{&1, board_win_at(&1, caller)})
+    |> Enum.map(&{&1, do_board_win_at(&1, [], caller)})
     |> Enum.sort_by(&elem(&1, 1).round, :desc)
     |> List.first()
-  end
-
-  def board_win_at(board, caller) do
-    do_board_win_at(board, [], caller)
   end
 
   defp do_board_win_at(board, called, [head | rest]) do

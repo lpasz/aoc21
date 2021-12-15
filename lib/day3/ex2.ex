@@ -1,4 +1,5 @@
 defmodule AdventOfCode2021.Day3.Exercise2 do
+  @spec life_support_rating(AdventOfCode2021.Day3.Exercise1.inputs()) :: integer()
   def life_support_rating(inputs) do
     oxygen_generator_rate = oxygen_generator_rating(inputs) |> Integer.undigits(2)
     co2_scrubber_rate = co2_scrubber_rating(inputs) |> Integer.undigits(2)
@@ -6,10 +7,14 @@ defmodule AdventOfCode2021.Day3.Exercise2 do
     oxygen_generator_rate * co2_scrubber_rate
   end
 
+  @spec oxygen_generator_rating(AdventOfCode2021.Day3.Exercise1.inputs()) ::
+          AdventOfCode2021.Day3.Exercise1.input()
   def oxygen_generator_rating(inputs) do
     do_rating(inputs, :one, 0)
   end
 
+  @spec co2_scrubber_rating(AdventOfCode2021.Day3.Exercise1.inputs()) ::
+          AdventOfCode2021.Day3.Exercise1.input()
   def co2_scrubber_rating(inputs) do
     do_rating(inputs, :zero, 0)
   end

@@ -62,13 +62,12 @@ defmodule CrabAlign do
   end
 end
 
-CrabAlign.read_from_disk!()
-|> CrabAlign.crab_aligngments_fuel_cost()
-|> CrabAlign.most_fuel_efficient()
-|> IO.inspect(label: :crab_align_position_fuel)
+# CrabAlign.read_from_disk!()
+# |> CrabAlign.crab_aligngments_fuel_cost()
+# |> CrabAlign.most_fuel_efficient()
+# |> IO.inspect(label: :crab_align_position_fuel)
 
-
-CrabAlign.read_from_disk!()
-|> CrabAlign.new_crab_aligngments_fuel_cost()
-|> CrabAlign.most_fuel_efficient()
-|> IO.inspect(label: :crab_align_position_new_fuel)
+# CrabAlign.read_from_disk!()
+# |> CrabAlign.new_crab_aligngments_fuel_cost()
+# |> CrabAlign.most_fuel_efficient()
+# |> IO.inspect(label: :crab_align_position_new_fuel)

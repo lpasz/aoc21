@@ -82,7 +82,6 @@ result = AdventOfCode2021.Day4.Exercise1.calc_boards_points({board, board_info})
 
 IO.puts("Day 4 - Exercise 1 - Result #{result}")
 
-
 {board, board_info} = AdventOfCode2021.Day4.Exercise1.get_losing_board(boards, called)
 result = AdventOfCode2021.Day4.Exercise1.calc_boards_points({board, board_info})
 

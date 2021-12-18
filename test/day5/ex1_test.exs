@@ -51,7 +51,6 @@ defmodule AdventOfCode2021.Day5.Exercise1Test do
     assert 12 ==
              inputs
              |> overlap_diagram()
-             |> IO.inspect()
              |> List.flatten()
              |> Enum.count(&(&1 >= 2))
   end

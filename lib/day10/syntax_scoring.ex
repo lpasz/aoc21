@@ -52,7 +52,9 @@ defmodule SyntaxScoring do
     val
   end
 
-  defp autocomplete_closing_brackets(%__MODULE__{open_brackets: open_brackets, auto_complete: []} = token) do
+  defp autocomplete_closing_brackets(
+         %__MODULE__{open_brackets: open_brackets, auto_complete: []} = token
+       ) do
     %{token | auto_complete: Enum.map(open_brackets, &@matching_pair[&1])}
   end
 

@@ -135,7 +135,6 @@ defmodule DisplaySignal do
   end
 end
 
-
 inputs = DisplaySignal.read_from_disk!()
 
 IO.puts("Day 8 - Example 1 - #{DisplaySignal.count_easy_spots(inputs)}")

@@ -21,7 +21,7 @@ defmodule PassagePathingTest do
     test "all paths", %{input: input} do
       result =
         input
-        |> find_all_paths("start", [], [], [])
+        |> find_all_paths()
         |> Enum.map(&Enum.reverse/1)
 
       assert length(result) == 10
@@ -43,7 +43,7 @@ defmodule PassagePathingTest do
     test "all paths 2", %{input: input} do
       result =
         input
-        |> find_all_paths("start", [], [], [])
+        |> find_all_paths_one_rep()
 
       assert length(result) == 36
     end
@@ -57,7 +57,7 @@ defmodule PassagePathingTest do
     test "all paths", %{input: input} do
       result =
         input
-        |> find_all_paths("start", [], [], [])
+        |> find_all_paths()
         |> Enum.map(&Enum.reverse/1)
 
       assert length(result) == 19
@@ -89,7 +89,7 @@ defmodule PassagePathingTest do
     test "all paths 2", %{input: input} do
       result =
         input
-        |> find_all_paths("start", [], [], [])
+        |> find_all_paths_one_rep()
 
       assert length(result) == 103
     end
@@ -103,7 +103,7 @@ defmodule PassagePathingTest do
     test "all paths", %{input: input} do
       result =
         input
-        |> find_all_paths("start", [], [], [])
+        |> find_all_paths()
         |> Enum.map(&Enum.reverse/1)
 
       assert length(result) == 226
@@ -112,7 +112,7 @@ defmodule PassagePathingTest do
     test "all paths 2", %{input: input} do
       result =
         input
-        |> find_all_paths("start", [], [], [])
+        |> find_all_paths_one_rep()
 
       assert length(result) == 3509
     end

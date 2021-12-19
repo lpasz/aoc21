@@ -13,17 +13,8 @@ defmodule PassagePathing do
   def part_2 do
     at_most_one_small_cave =
       read_from_disk!()
-      |> find_all_paths("start", [], [], [])
-      |> Enum.map(fn l ->
-        l
-        |> Enum.reject(&(&1 == "start"))
-        |> Enum.reject(&(&1 == "end"))
-        |> Enum.reject(&(&1 == String.upcase(&1)))
-        |> Enum.frequencies()
-        |> Enum.count(fn {_, n} -> n >= 2 end)
-      end)
-      |> Enum.reject(&(&1 > 1))
-      |> Enum.count()
+      |> find_all_paths_one_rep()
+      |> length()
 
     IO.puts(
       "How many paths through this cave system are there that visit small caves at most once? #{at_most_one_small_cave}"
@@ -46,20 +37,43 @@ defmodule PassagePathing do
 
   def big_cave?(cave), do: String.upcase(cave) == cave
 
+  def find_all_paths_one_rep(paths) do
+    paths
+    |> find_all_paths(&next_possible_caves_ex2/3)
+    |> Enum.reject(fn l ->
+      l
+      |> Enum.reject(&(&1 == "start"))
+      |> Enum.reject(&(&1 == "end"))
+      |> Enum.reject(&big_cave?/1)
+      |> Enum.frequencies()
+      |> Enum.count(fn {_, n} -> n >= 2 end)
+      |> Kernel.>(1)
+    end)
+  end
+
   def find_all_paths(
         paths,
+        next_fun \\ &next_possible_caves/3,
         current_cave \\ "start",
         current_path \\ [],
         to_visit \\ [],
         complete_paths \\ []
       )
 
-  def find_all_paths(paths, "end", current_path, [], complete_paths),
+  def find_all_paths(paths, next_fun, "end", current_path, [], complete_paths),
     do: [["end" | current_path] | complete_paths]
 
-  def find_all_paths(paths, "end", current_path, [to_visit_path | to_visit_paths], complete_paths) do
+  def find_all_paths(
+        paths,
+        next_fun,
+        "end",
+        current_path,
+        [to_visit_path | to_visit_paths],
+        complete_paths
+      ) do
     find_all_paths(
       paths,
+      next_fun,
       hd(to_visit_path),
       tl(to_visit_path),
       to_visit_paths,
@@ -67,8 +81,8 @@ defmodule PassagePathing do
     )
   end
 
-  def find_all_paths(paths, current, current_path, to_visit_paths, complete_paths) do
-    case next_possible_caves(paths, current, current_path) do
+  def find_all_paths(paths, next_fun, current, current_path, to_visit_paths, complete_paths) do
+    case next_fun.(paths, current, current_path) do
       [] ->
         case to_visit_paths do
           [] ->
@@ -77,6 +91,7 @@ defmodule PassagePathing do
           [to_visit_path | to_visit_paths] ->
             find_all_paths(
               paths,
+              next_fun,
               hd(to_visit_path),
               tl(to_visit_path),
               to_visit_paths,
@@ -92,7 +107,7 @@ defmodule PassagePathing do
             [[next | new_current_path] | acc]
           end)
 
-        find_all_paths(paths, next, new_current_path, to_visit_paths, complete_paths)
+        find_all_paths(paths, next_fun, next, new_current_path, to_visit_paths, complete_paths)
     end
   end
 
@@ -104,7 +119,7 @@ defmodule PassagePathing do
       next_caves ->
         next_caves
         |> Enum.reject(&(&1 == "start"))
-        |> Enum.reject(&(small_cave?(&1) and visited_twice_only_one?(&1, visited)))
+        |> Enum.reject(&(small_cave?(&1) and &1 in visited))
     end
   end
 
@@ -121,6 +136,18 @@ defmodule PassagePathing do
       false
     else
       cave in visited
+    end
+  end
+
+  defp next_possible_caves_ex2(paths, current_cave, visited) do
+    case Map.get(paths, current_cave, []) do
+      [] ->
+        []
+
+      next_caves ->
+        next_caves
+        |> Enum.reject(&(&1 == "start"))
+        |> Enum.reject(&(small_cave?(&1) and visited_twice_only_one?(&1, visited)))
     end
   end
 end

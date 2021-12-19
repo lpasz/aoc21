@@ -39,6 +39,14 @@ defmodule PassagePathingTest do
                ~w(start b end)
              ] == result
     end
+
+    test "all paths 2", %{input: input} do
+      result =
+        input
+        |> find_all_paths("start", [], [], [])
+
+      assert length(result) == 36
+    end
   end
 
   describe "input 2" do
@@ -77,11 +85,19 @@ defmodule PassagePathingTest do
                  ~w(start kj dc end)
                ] -- result
     end
+
+    test "all paths 2", %{input: input} do
+      result =
+        input
+        |> find_all_paths("start", [], [], [])
+
+      assert length(result) == 103
+    end
   end
 
   describe "input 3" do
     setup do
-      [input: read_from_disk!("test/day12/input2.txt") |> IO.inspect()]
+      [input: read_from_disk!("test/day12/input2.txt")]
     end
 
     test "all paths", %{input: input} do
@@ -89,9 +105,16 @@ defmodule PassagePathingTest do
         input
         |> find_all_paths("start", [], [], [])
         |> Enum.map(&Enum.reverse/1)
-        |> IO.inspect()
 
       assert length(result) == 226
+    end
+
+    test "all paths 2", %{input: input} do
+      result =
+        input
+        |> find_all_paths("start", [], [], [])
+
+      assert length(result) == 3509
     end
   end
 end

@@ -10,6 +10,26 @@ defmodule PassagePathing do
     )
   end
 
+  def part_2 do
+    at_most_one_small_cave =
+      read_from_disk!()
+      |> find_all_paths("start", [], [], [])
+      |> Enum.map(fn l ->
+        l
+        |> Enum.reject(&(&1 == "start"))
+        |> Enum.reject(&(&1 == "end"))
+        |> Enum.reject(&(&1 == String.upcase(&1)))
+        |> Enum.frequencies()
+        |> Enum.count(fn {_, n} -> n >= 2 end)
+      end)
+      |> Enum.reject(&(&1 > 1))
+      |> Enum.count()
+
+    IO.puts(
+      "How many paths through this cave system are there that visit small caves at most once? #{at_most_one_small_cave}"
+    )
+  end
+
   def read_from_disk!(path \\ "lib/day12/input.txt") do
     path
     |> File.read!()
@@ -21,13 +41,6 @@ defmodule PassagePathing do
       |> Map.update(to, [from], &[from | &1])
     end)
   end
-
-  # def at_most_one_small_cave(paths) do
-  #   paths
-  #   |> Enum.map(fn path -> Enum.reject(path, &(&1 in ~w(start end))) end)
-  #   |> Enum.reject(fn path -> Enum.count(path, &small_cave?/1) > 1 end)
-  #   |> Enum.count()
-  # end
 
   def small_cave?(cave), do: not big_cave?(cave)
 
@@ -85,10 +98,32 @@ defmodule PassagePathing do
 
   defp next_possible_caves(paths, current_cave, visited) do
     case Map.get(paths, current_cave, []) do
-      [] -> []
-      next_caves -> Enum.reject(next_caves, &(small_cave?(&1) and &1 in visited))
+      [] ->
+        []
+
+      next_caves ->
+        next_caves
+        |> Enum.reject(&(&1 == "start"))
+        |> Enum.reject(&(small_cave?(&1) and visited_twice_only_one?(&1, visited)))
+    end
+  end
+
+  defp visited_twice_only_one?(cave, visited) do
+    num_of_visited_twice =
+      visited
+      |> Enum.reject(&(&1 == "start"))
+      |> Enum.filter(&small_cave?/1)
+      |> Enum.frequencies()
+      |> Enum.count(fn {_, num} -> num == 2 end)
+
+    if num_of_visited_twice == 0 do
+      # aka don't reject
+      false
+    else
+      cave in visited
     end
   end
 end
 
 PassagePathing.part_1()
+PassagePathing.part_2()

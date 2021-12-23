@@ -30,7 +30,7 @@ defmodule TransparentOrigami do
         "\n" <>
         Enum.reduce(vals, "", fn {_, val}, acc2 -> acc2 <> if(val, do: "x", else: " ") end)
     end)
-    |> IO.puts
+    |> IO.puts()
   end
 
   def sort_by_y_x({{x, y}, _}, {{xx, yy}, _}) do

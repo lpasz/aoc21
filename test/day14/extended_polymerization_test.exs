@@ -3,20 +3,10 @@ defmodule ExtendedPolymerizationTest do
 
   import ExtendedPolymerization
 
-  setup do
-    {input, lookup} = read_from_disk!("test/day14/input.txt")
-    [initial: input, lookup_table: lookup]
-  end
+  test "subtract most by least repeated item on the polymer"do
+    assert 1588 == sub_most_and_least_repeating_polymer_after_rounds("test/day14/input.txt", 10)
 
-  test "steps correctly", %{initial: initial, lookup_table: lookup_table} do
-    step1 = polymerization(initial, lookup_table)
-    step2 = polymerization(step1, lookup_table)
-    step3 = polymerization(step2, lookup_table)
-    step4 = polymerization(step3, lookup_table)
-
-    assert String.codepoints("NCNBCHB") == step1
-    assert String.codepoints("NBCCNBBBCBHCB") == step2
-    assert String.codepoints("NBBBCNCCNBBNBNBBCHBHHBCHB") == step3
-    assert String.codepoints("NBBNBNBBCCNBCNCCNBBNBBNBBBNBBNBBCBHCBHHNHCBBCBHCB") == step4
+    assert 2_188_189_693_529 ==
+             sub_most_and_least_repeating_polymer_after_rounds("test/day14/input.txt", 40)
   end
 end

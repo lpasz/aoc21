@@ -1,5 +1,5 @@
 defmodule Snailfish.Input do
-  def get do
+  def puzzle_input do
     [
       [1, [[3, 6], [0, [6, 3]]]],
       [[[5, 2], [[5, 0], 6]], [6, [5, 1]]],

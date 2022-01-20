@@ -1,6 +1,5 @@
 defmodule TrickShot do
   def read_from_disk!(_path \\ "") do
-    #%{x: 20..30, y: -10..-5}
     %{x: 70..96, y: -179..-124}
   end
 

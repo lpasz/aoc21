@@ -69,7 +69,7 @@ defmodule Snailfish.Explode do
   def do_explode_add([sf1, sf2], [], add, type) do
     case type do
       :prev -> [sf1, do_explode_add(sf2, [], add, type)]
-      :next-> [do_explode_add(sf1, [], add, type), sf2]
+      :next -> [do_explode_add(sf1, [], add, type), sf2]
     end
   end
 

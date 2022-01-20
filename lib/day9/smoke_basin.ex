@@ -78,7 +78,7 @@ defmodule SmokeBasin do
   defp calculate_bassin([], input_map, bassin_size),
     do: {input_map, bassin_size}
 
-  defp calculate_bassin([{point, value} | rest], input_map, bassin_size) do
+  defp calculate_bassin([{point, _value} | rest], input_map, bassin_size) do
     neighbors =
       point
       |> get_neighbors(input_map)
